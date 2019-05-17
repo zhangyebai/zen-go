@@ -20,7 +20,7 @@ func (bookMapper *BookMapper) ListBooks(page int, size int) (Page, []Book) {
 	if total > 0 {
 		pages = total/size + 1
 	}
-	for idx := range books{
+	for idx := range books {
 		books[idx].ReleaseTime = model.JsonTime(books[idx].Time)
 	}
 	return Page{Page: page, Size: len(books), Total: total, Pages: pages}, books

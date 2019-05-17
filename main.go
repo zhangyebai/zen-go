@@ -25,7 +25,7 @@ func setup() {
 	engine := gin.Default()
 	router.Setup(engine)
 	if err := engine.Run("localhost:8080"); nil != err {
-		println("application listen at localhost:8080 start failed, maybe case: %s", err.Error())
+		println("application listens at localhost:8080 start failed, maybe case: %s", err.Error())
 		os.Exit(-1)
 	}
 }
