@@ -12,9 +12,7 @@ func (bookMapper *BookMapper) ListBooks(page int, size int) (Page, []Book) {
 	if page <= 0 {
 		page = 1
 	}
-	if page > 1 {
-		offset = (page - 1) * size
-	}
+	offset = (page - 1) * size
 	db.Table("book").Count(&total).Limit(size).Offset(offset).Find(&books)
 	var pages = 0
 	if total > 0 {

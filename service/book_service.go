@@ -7,6 +7,12 @@ import (
 )
 
 func (bookService *BookService) ListBooks(page int, size int) (Page, []Book) {
+	if page <= 0{
+		page = 1
+	}
+	if size <= 0{
+		size = 10
+	}
 	return bookMapper.ListBooks(page, size)
 }
 
