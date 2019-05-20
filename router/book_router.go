@@ -32,11 +32,15 @@ func (bookRouter *BookRouter) listBooks(ctx *Context) {
 	var err error
 	condition := ctx.Query("page")
 	if page, err = strconv.Atoi(condition); nil != err {
-		log.WithFields(map[string]interface{}{"page": condition, "error": err}).Warn("error parameter, page will be set with 1")
+		log.WithFields(map[string]interface{}{"page": condition, "error": err}).
+			Warn("error parameter, page will be set with 1")
+		page = 1
 	}
 	condition = ctx.Query("size")
 	if size, err = strconv.Atoi(condition); nil != err {
-		log.WithFields(map[string]interface{}{"size": condition, "error": err}).Warn("error parameter, size will be set with 10")
+		log.WithFields(map[string]interface{}{"size": condition, "error": err}).
+			Warn("error parameter, size will be set with 10")
+		size = 10
 	}
 	ctx.IndentedJSON(http.StatusOK, util.Page(bookService.ListBooks(page, size)))
 }

@@ -2,6 +2,7 @@ package router
 
 import (
 	"net/http"
+	"strconv"
 	"zen/util"
 )
 
@@ -24,4 +25,24 @@ func (authorRouter *AuthorRouter) saveAuthor(ctx *Context) {
 	} else {
 		ctx.IndentedJSON(http.StatusOK, util.Ok(count))
 	}
+}
+
+
+func (authorRouter * AuthorRouter) listAuthors(ctx * Context){
+	page := 1
+	size := 10
+	var err error
+	var condition = ctx.Query("page")
+	if page, err = strconv.Atoi(condition); nil != err{
+		log.WithFields(map[string]interface{}{"page": condition, "error": err}).
+			Warn("error parameter, page will be set with 1")
+		page = 1
+	}
+	condition = ctx.Query("size")
+	if size, err = strconv.Atoi(condition); nil != err{
+		log.WithFields(map[string]interface{}{"size": condition, "error": err}).
+			Warn("error parameter, size will be set with 10")
+		size = 10
+	}
+	ctx.IndentedJSON(http.StatusOK, util.Page(authorService.ListAuthors(page, size)))
 }
