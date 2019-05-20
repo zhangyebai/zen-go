@@ -9,6 +9,7 @@ import (
 func (authorRouter *AuthorRouter) Setup(engine *Engine) {
 	group := engine.Group("/authors")
 	group.POST("/", authorRouter.saveAuthor)
+	group.GET("/", authorRouter.listAuthors)
 }
 
 func (authorRouter *AuthorRouter) saveAuthor(ctx *Context) {
